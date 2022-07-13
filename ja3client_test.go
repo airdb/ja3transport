@@ -8,11 +8,12 @@ import (
 )
 
 // const DefaultJA3Sig string = "771,4865-4866-4867-49196-49195-49188-49187-49162-49161-52393-49200-49199-49192-49191-49172-49171-52392-157-156-61-60-53-47-49160-49170-10,65281-0-23-13-5-18-16-11-51-45-43-10-21,29-23-24-25,0"
-const JA3erURL = "https://ja3er.com/json"
+// const JA3erURL = "https://ja3er.com/json"
+const JA3erURL = "https://dean.airdb.dev/"
 
 func TestJa3(t *testing.T) {
-
-	client, err := ja3transport.New(ja3transport.ChromeVersion103)
+	ja3str := ja3transport.BadJA3
+	client, err := ja3transport.New(ja3str)
 	if err != nil {
 		t.Fatalf("new ja3 transport error: %v", err)
 	}
@@ -29,6 +30,5 @@ func TestJa3(t *testing.T) {
 	}
 
 	t.Log(string(body))
-	t.Log(ja3transport.ChromeVersion103.JA3)
-
+	t.Log(ja3str)
 }
