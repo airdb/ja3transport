@@ -20,7 +20,6 @@ func TestJa3(t *testing.T) {
 	resp, err := client.Get(JA3erURL)
 	if err != nil {
 		t.Fatalf("http get error: %v", err)
-		t.Fatal(err)
 	}
 
 	defer resp.Body.Close()
