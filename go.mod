@@ -1,10 +1,10 @@
-module github.com/CUCyber/ja3transport
+module github.com/airdb/ja3transport
 
-go 1.13
+go 1.18
+
+require github.com/refraction-networking/utls v1.1.0
 
 require (
-	github.com/refraction-networking/utls v0.0.0-20200820030103-33a29038e742
-	golang.org/x/crypto v0.0.0-20201016220609-9e8e0b390897 // indirect
-	golang.org/x/net v0.0.0-20191119073136-fc4aabc6c914
-	golang.org/x/sys v0.0.0-20201029080932-201ba4db2418 // indirect
+	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d // indirect
+	golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1 // indirect
 )
