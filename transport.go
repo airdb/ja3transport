@@ -108,13 +108,39 @@ func NewTransportWithConfig(ja3 string, config *tls.Config) (*http.Transport, er
 	return &http.Transport{DialTLS: dialtls}, nil
 }
 
+/*
+
+JA3 gathers the decimal values of the bytes for the following fields in the Client Hello packet;
+SSL Version, Accepted Ciphers, List of Extensions, Elliptic Curves, and Elliptic Curve Formats.
+It then concatenates those values together in order, using a "," to delimit each field and a "-" to delimit each value in each field.
+The field order is as follows:
+SSLVersion,Cipher,SSLExtension,EllipticCurve,EllipticCurvePointFormat
+If there are no SSL Extensions in the Client Hello, the fields are left empty.
+Example: 769,4-5-10-9-100-98-3-6-19-18-99,,,
+
+More information: https://github.com/salesforce/ja3#how-it-works
+*/
+const (
+	Ja3FieldCount  = 5
+	DelimiterDash  = "-"
+	DelimiterComma = ","
+)
+
 // stringToSpec creates a ClientHelloSpec based on a JA3 string
 func stringToSpec(ja3 string) (*tls.ClientHelloSpec, error) {
 	tokens := strings.Split(ja3, ",")
+	if len(tokens) < Ja3FieldCount {
+		return nil, fmt.Errorf("ja3 is invliad")
+	}
 
 	version := tokens[0]
-	ciphers := strings.Split(tokens[1], "-")
-	extensions := strings.Split(tokens[2], "-")
+
+	// ciphers := strings.Split(tokens[1], "-")
+	ciphers := SplitJa3Field(tokens[1])
+
+	extensions := SplitJa3Field(tokens[2])
+	fmt.Println("len", len(extensions))
+
 	curves := strings.Split(tokens[3], "-")
 	if len(curves) == 1 && curves[0] == "" {
 		curves = []string{}
@@ -147,8 +173,10 @@ func stringToSpec(ja3 string) (*tls.ClientHelloSpec, error) {
 	extMap["11"] = &tls.SupportedPointsExtension{SupportedPoints: targetPointFormats}
 
 	// build extenions list
+
 	var exts []tls.TLSExtension
 	for _, e := range extensions {
+		fmt.Println("xxxx", e)
 		te, ok := extMap[e]
 		if !ok {
 			return nil, ErrExtensionNotExist(e)
@@ -180,6 +208,14 @@ func stringToSpec(ja3 string) (*tls.ClientHelloSpec, error) {
 		Extensions:         exts,
 		GetSessionID:       sha256.Sum256,
 	}, nil
+}
+
+func SplitJa3Field(field string) []string {
+	if field == "" {
+		return []string{}
+	}
+
+	return strings.Split(field, DelimiterDash)
 }
 
 func urlToHost(target *url.URL) *url.URL {

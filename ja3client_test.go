@@ -12,7 +12,7 @@ import (
 const JA3erURL = "https://dean.airdb.dev/"
 
 func TestJa3(t *testing.T) {
-	ja3str := ja3transport.BadJA3
+	ja3str := ja3transport.Ja3NoSSLExtension
 	client, err := ja3transport.New(ja3str)
 	if err != nil {
 		t.Fatalf("new ja3 transport error: %v", err)

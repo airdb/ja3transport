@@ -23,7 +23,12 @@ var ChromeVersion103 = Browser{
 	UserAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
 }
 
+var Ja3NoSSLExtension = Browser{
+	JA3:       "769,4-5-10-9-100-98-3-6-19-18-99,,,",
+	UserAgent: "no SSL Extensions",
+}
+
 var BadJA3 = Browser{
-	JA3:       "771,4865-4866-4867-49195-49199-49196-49200-52393-52392-49171-49172-156-157-47-53,0-23-65281-10-11-35-16-5-13-18-51-45-43-27,29-23-24,0",
+	JA3:       "771,4865-4867-4866-49196-49162-49195-52393-49161-49200-49172-49199-52392-49171-157-53-156-47-10,0-23-65281-10-11-35-16-5-51-43-13-45-28",
 	UserAgent: "curl/xx",
 }
