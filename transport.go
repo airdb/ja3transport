@@ -139,7 +139,6 @@ func stringToSpec(ja3 string) (*tls.ClientHelloSpec, error) {
 	ciphers := SplitJa3Field(tokens[1])
 
 	extensions := SplitJa3Field(tokens[2])
-	fmt.Println("len", len(extensions))
 
 	curves := strings.Split(tokens[3], "-")
 	if len(curves) == 1 && curves[0] == "" {
@@ -176,7 +175,6 @@ func stringToSpec(ja3 string) (*tls.ClientHelloSpec, error) {
 
 	var exts []tls.TLSExtension
 	for _, e := range extensions {
-		fmt.Println("xxxx", e)
 		te, ok := extMap[e]
 		if !ok {
 			return nil, ErrExtensionNotExist(e)
