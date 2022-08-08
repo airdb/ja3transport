@@ -23,18 +23,32 @@ var ChromeVersion103 = Browser{
 	UserAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
 }
 
-var Ja3NoSSLExtension = Browser{
+var Ja3WithoutExtension = Browser{
 	JA3:       "771,4865-4866-4867-49195-49196-52393-49199-49200-52392-49171-49172-156-157-47-53,,,",
-	UserAgent: "no SSL Extensions",
+	UserAgent: "without Extensions",
 }
 
+// Extension must contain 10 and 11 if group and format exist.
 var Ja3WithPadding = Browser{
-	JA3:       "771,4865-4866-4867-49195-49196-52393-49199-49200-53,0-51-43-13-45-21,29-23-30-25-24,0-1-2",
+	JA3:       "771,4865-4866-4867-49195-49196-52393-49199-49200-53,0-51-43-13-45-10-11-21,29-23-30-25-24,0-1-2",
 	UserAgent: "with padding",
 }
 
+// Extension must contain 10 and 11 if group and format exist.
 var Ja3WithoutPadding = Browser{
+	JA3:       "771,4865-4866-4867-49195-49196-52393-49199-49200-53,0-51-43-13-45-10-11,29-23-30-25-24,0-1-2",
+	UserAgent: "without padding",
+}
+
+// Extension must contain 10 and 11 if group and format exist.
+// So if extension 10 and 11 are not setting,  group and format are meaningless.
+var Ja3WithoutGroupAndFormat = Browser{
 	JA3:       "771,4865-4866-4867-49195-49196-52393-49199-49200-53,0-51-43-13-45,29-23-30-25-24,0-1-2",
+	UserAgent: "without group and format",
+}
+
+var Ja3WithoutGroupAndFormatWrong = Browser{
+	JA3:       "771,4865-4866-4867-49195-49196-52393-49199-49200-53,0-51-43-13-45-10-11,,",
 	UserAgent: "without padding",
 }
 

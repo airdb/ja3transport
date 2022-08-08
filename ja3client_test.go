@@ -17,6 +17,30 @@ type Response struct {
 // const JA3erURL = "https://ja3er.com/json"
 const JA3erURL = "https://fp.airdb.dev/dean/ja3transport"
 
+func TestJa3WithoutExtension(t *testing.T) {
+	ja3str := ja3transport.Ja3WithoutExtension
+	client, err := ja3transport.New(ja3str)
+	if err != nil {
+		t.Fatalf("new ja3 transport error: %v", err)
+	}
+	resp, err := client.Get(JA3erURL)
+	if err != nil {
+		t.Fatalf("http get error: %v", err)
+	}
+
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fatalf("read body error: %v", err)
+	}
+
+	ret := Response{}
+
+	json.Unmarshal(body, &ret)
+	t.Log("req :", ja3str)
+	t.Log("resp:", ret)
+}
+
 func TestJa3WithPadding(t *testing.T) {
 	ja3str := ja3transport.Ja3WithPadding
 	client, err := ja3transport.New(ja3str)
@@ -37,8 +61,8 @@ func TestJa3WithPadding(t *testing.T) {
 	ret := Response{}
 
 	json.Unmarshal(body, &ret)
-	t.Log(ret)
-	t.Log(ja3str)
+	t.Log("req :", ja3str)
+	t.Log("resp:", ret)
 }
 
 func TestJa3WithoutPadding(t *testing.T) {
@@ -61,6 +85,31 @@ func TestJa3WithoutPadding(t *testing.T) {
 	ret := Response{}
 
 	json.Unmarshal(body, &ret)
-	t.Log(ret)
-	t.Log(ja3str)
+	t.Log("req :", ja3str)
+	t.Log("resp:", ret)
+}
+
+func TestJa3WithoutGroupAndFormat(t *testing.T) {
+	ja3str := ja3transport.Ja3WithoutGroupAndFormat
+	client, err := ja3transport.New(ja3str)
+	if err != nil {
+		t.Fatalf("new ja3 transport error: %v", err)
+	}
+	resp, err := client.Get(JA3erURL)
+	if err != nil {
+		t.Fatalf("http get error: %v", err)
+	}
+
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fatalf("read body error: %v", err)
+	}
+
+	ret := Response{}
+
+	json.Unmarshal(body, &ret)
+	t.Log("req :", ja3str)
+	t.Log("resp:", ret)
+	t.Log("If ja3 string has no group and format, it's ok. Since extension doesnot have type 10 and 11.")
 }

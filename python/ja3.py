@@ -41,7 +41,7 @@ if __name__ == '__main__':
     s = requests.Session()
     s.headers.update(headers)
 
-    for _ in range(2):
+    for _ in range(5):
         s.proxies.update()
         s.mount('https://fp.airdb.dev', DESAdapter())
         resp = s.get('https://fp.airdb.dev/dean/python').json()
