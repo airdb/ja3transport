@@ -28,6 +28,16 @@ var Ja3NoSSLExtension = Browser{
 	UserAgent: "no SSL Extensions",
 }
 
+var Ja3WithPadding = Browser{
+	JA3:       "771,4865-4866-4867-49195-49196-52393-49199-49200-53,0-51-43-13-45-21,29-23-30-25-24,0-1-2",
+	UserAgent: "with padding",
+}
+
+var Ja3WithoutPadding = Browser{
+	JA3:       "771,4865-4866-4867-49195-49196-52393-49199-49200-53,0-51-43-13-45,29-23-30-25-24,0-1-2",
+	UserAgent: "without padding",
+}
+
 var BadJA3 = Browser{
 	JA3:       "771,4865-4867-4866-49196-49162-49195-52393-49161-49200-49172-49199-52392-49171-157-53-156-47-10,0-23-65281-10-11-35-16-5-51-43-13-45-28",
 	UserAgent: "curl/xx",
